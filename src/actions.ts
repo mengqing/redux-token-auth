@@ -128,9 +128,12 @@ const generateAuthActions = (config: { [key: string]: any }): ActionsExport => {
     storage,
     userAttributes,
     userRegistrationAttributes,
+    withCredentials,
   } = config
 
-  const Storage: DeviceStorage = Boolean(storage.flushGetRequests) ? storage : AsyncLocalStorage
+  const Storage: DeviceStorage = Boolean(storage) ? storage : AsyncLocalStorage
+
+  axios.defaults.withCredentials = Boolean(withCredentials)
 
   const registerUser = (
     userRegistrationDetails: UserRegistrationDetails,
